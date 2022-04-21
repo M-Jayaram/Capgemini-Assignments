@@ -1,0 +1,628 @@
+*************************************************************DO-SELECT-CODING-QUESTIONS**************************************************************************************************
+
+
+
+*************************************************************//question 11**************************************************************************************************
+package doselectquestions;
+
+
+class InvalidDaysException extends Exception
+{
+	public InvalidDaysException(String str)
+	{
+		super(str);
+	}
+}
+
+class InvalidSalaryException extends Exception
+{
+	public InvalidSalaryException(String str)
+	{
+		super(str);
+	}
+}
+
+class SalaryData
+{
+	public String name;
+	public int daysInMonth;
+	public double salary;
+	
+	public SalaryData(String name,
+	 int daysInMonth,double salary)
+	{
+		this.name = name;
+		this.daysInMonth = daysInMonth;
+		this.salary = salary;
+	}
+}
+
+class Validator
+{
+	public String validSalaryData(SalaryData s) throws 
+	InvalidDaysException, InvalidSalaryException
+	{
+//		int a =28;
+//		int b= 30;
+//		int c = 31;
+		
+		if((s.daysInMonth>0 && s.daysInMonth<28 )|| s.daysInMonth==29)
+		{
+			throw new InvalidDaysException("Invalid Days");
+		}
+		else if (s.salary <0 || s.salary > 1000000)
+		{
+			throw new  InvalidSalaryException("Invalid Salary");
+		}
+		else
+		{
+			return "Valid Data";
+		}
+	}
+	
+	public double totalSalary(SalaryData s)
+	{
+		return s.daysInMonth*s.salary;
+	}
+}
+
+
+public class salaryvalidatorproblemeleven {
+
+	public static void main(String[] args) throws 
+	InvalidDaysException, InvalidSalaryException
+	{
+		try
+		{
+		SalaryData s = new SalaryData("Steve",28,10000);
+		Validator val = new Validator();
+		String ans = val.validSalaryData(s);
+		double sal =0.0;
+		if(ans == "Valid Data")
+		{
+		 sal +=  val.totalSalary(s);
+		}
+		
+        
+       System.out.println("ans = "+ans);
+       System.out.println("sal = "+sal);
+		}
+		catch (InvalidDaysException e)
+		{
+			System.out.println(e.getMessage());
+		}
+		
+		catch (InvalidSalaryException e)
+		{
+			System.out.println(e.getMessage());
+		}
+	}
+
+}
+
+
+
+
+*************************************************************//question 12*************************************************************************************************
+
+
+Java Code:
+public class Student {
+	String StudentID;
+    String StudentName;
+    
+    public Student(String StudentID , String StudentName) {
+    	this.StudentID=StudentID;
+        this.StudentName=StudentName;
+    	
+    }
+
+	public static void main(String[] args) throws Exception {
+		// TODO Auto-generated method stub
+		Student student=new Student("It_123","Sandhya");
+		Source s=new Source();
+        String res=s.ValidateStudent(student);
+        System.out.println(res);
+        String res1=s.ValidateUserId(student);
+        System.out.println(res1);
+	}
+
+}
+
+class Source{
+	public String ValidateStudent(Student std) throws InvalidStudentNameException {
+		
+		if(!(Character.isUpperCase(std.StudentName.charAt(0)) && 
+				std.StudentName.substring(1).equals(std.StudentName.substring(1).toLowerCase()))) {
+			try{
+                throw new InvalidStudentNameException("Invalid Name");
+            }
+            catch(Exception e)
+            {
+                //System.out.println(e);
+                std.StudentName="Invalid";
+                return e.toString();
+            }
+           
+			
+		}
+		else
+		{
+			std.StudentName="Valid";
+			return std.StudentName;
+		}
+		
+	}
+	
+	public String ValidateUserId(Student std) throws InvalidStudentNameException {
+		
+		if(!(std.StudentID.matches("^[A-Z]\\w{4,19}$") && 
+				std.StudentID.substring(1).equals(std.StudentID.substring(1).toLowerCase()))) {
+			try{
+                throw new InvalidStudentNameException("Invalid Name");
+            }
+            catch(Exception e)
+            {
+                //System.out.println(e);
+            	std.StudentID="Invalid";
+            	 return e.toString();
+            }
+           
+			
+		}
+		else
+		{
+				std.StudentID="Valid";
+				return std.StudentID;
+		}
+		
+	}
+}
+
+class InvalidStudentNameException extends Exception{
+	public InvalidStudentNameException(String msg) {
+		super(msg);
+	}
+}
+
+
+
+*************************************************************//question 13*************************************************************************************************
+
+import java.util.*;
+class Activity{
+   String string1;
+   String string2;
+   public static Activity(String string1 , String string2)
+   {
+       this.string1 = string1;
+       this.string2 = string2;
+       this.operator = operator;
+   }
+}
+public class Main{
+    
+       String str = "";
+       public String handlingException(Activity a){
+       try{
+           if(a.operator!="+"||a.operator!="-")
+           {
+               if(a.string1!=null&& a.string2!=null)
+               {
+                   str = "None Exception found";
+               }
+           }
+       }
+       }
+           catch(NullPointerException e){
+               e.printStackTrace();
+           }
+           catch(Exception e)
+           {
+               e.printStackTrace();
+           }
+       public String doOperation(Activity a)
+       {
+           String stringpp1="";
+           if(a.operator=="+")
+           {
+               stringpp1 = a.string1.concat(a.string2);
+           }
+           return stringpp1;
+       }
+       public static void main(String args[]) throws Exception{
+           Scanner sc = new Scanner(System.in);
+           Activity ac = new Activity("Hello ", "world" , "+");
+       }
+    
+}
+
+
+
+*************************************************************//question 14*************************************************************************************************
+
+
+import java.util.Scanner;
+
+public class Multiplecatch {
+public String checkException(double n1,double n2,char op)
+{
+	try
+	{
+		 
+		if((n1==0)||(n2==0)||((op!='+')&&(op!='-')&&(op!='*')&&(op!='/')))
+		{
+			if((n1==0)||(n2==0))
+			{
+				if(op=='*')
+				{
+					throw new MultiplicationbyZero("Multiplication with zero results in zero");
+				}
+				else
+				{
+					if(op=='/')
+					{
+						throw new ArithmeticException("Division by zero results in infinity");
+					}
+				}
+			}
+			else
+			{
+				String mess=op+"invalid operator";
+				throw new Otherexception(mess);
+			}
+		}
+	}catch(MultiplicationbyZero me)
+	{
+		return "Multiplication with zero results in zero";
+	}
+	catch(ArithmeticException ae)
+	{
+		return "Division by zero results in infinity";
+	}
+	catch(Otherexception e)
+	{
+		String mess=op+"invalid operator";
+		return mess;
+	}
+	return "No exception found";
+}
+public double calculate(double n1,double n2,char op)
+{
+	double ans=0.0;
+	char o=op;
+	switch(o)
+	{
+	case '+':
+	{
+		ans=n1+n2;
+		return ans;
+		
+	}
+	case '-':
+	{
+		ans=n1-n2;
+		return ans;
+		
+	}
+	case '*':
+	{
+		ans=n1*n2;
+		return ans;
+		
+	}
+	case '/':
+	{
+		ans=n1/n2;
+		return ans;
+		
+	}
+	
+	}
+	return ans;
+}
+public static void main(String[] args)throws MultiplicationbyZero,ArithmeticException,Exception
+{
+	Scanner sc= new Scanner(System.in); 
+	double num1=sc.nextDouble();
+	double num2=sc.nextDouble();
+	char op=sc.next().charAt(0);
+	Multiplecatch mc=new Multiplecatch();
+	String msg=mc.checkException(num1,num2,op);
+	System.out.println(msg);
+	if(msg=="No exception found")
+	{
+		double result=mc.calculate(num1,num2,op);
+		System.out.println(result);
+	}
+	
+}
+}
+class MultiplicationbyZero extends Exception
+{
+	private static final long serialVersionUID=1L;
+	public MultiplicationbyZero(String str)
+	{
+		super(str);
+	}
+}
+class Otherexception extends Exception
+{
+	private static final long serialVersionUID=1L;
+	public Otherexception(String str)
+	{
+		super(str);
+	}
+}
+
+
+
+*************************************************************//question 15*************************************************************************************************
+
+
+
+@SuppressWarnings("serial")
+class TypeException extends Exception{
+
+	@Override
+	public String toString() {
+		return "Vehicle Type Not Set";
+	}
+	
+}
+class Vehicles{
+	String type, model_no, model_name, owner_name, owner_details;
+
+	public Vehicles(String model_no, String model_name, String owner_name, String owner_details) {
+		this.model_no = model_no;
+		this.model_name = model_name;
+		this.owner_name = owner_name;
+		this.owner_details = owner_details;
+	}
+
+	public Vehicles() {
+		
+	}
+	public String get_type() {
+		return this.type;
+	}
+	public String retrieve() throws TypeException {
+		return "null" ;
+	}
+	
+}
+class Car extends Vehicles{
+
+	public Car() {
+		super();
+	}
+
+	public Car(String model_no, String model_name, String owner_name, String owner_details) {
+		super(model_no, model_name, owner_name, owner_details);
+	}
+	public String get_type() {
+		return this.type;
+	}
+	public void set_type(String typ) {
+		type=typ;
+	}
+
+	@Override
+	public String retrieve() throws TypeException{
+		if (this.type==null) {
+			throw new TypeException();
+		}
+		else {
+			return "[ model no. = "+this.model_no+","+" model name = "+this.model_name+","+
+		" owner_name = "+this.owner_name+","+" owner_details = "+this.model_no+" ]";
+		}
+	}
+	
+	
+	
+}
+public class Q15 {
+
+	public static void main(String[] args) {
+		Car c = new Car("1205", "Ford", "Sam", "California");
+		c.set_type("SUV");
+		try {
+			System.out.println(c.retrieve());
+		} catch (TypeException e) {
+			System.out.println(e.toString());
+		}
+	}
+
+}
+
+
+*************************************************************//question 44*************************************************************************************************
+
+public class Problem 
+{
+	public int credits;
+    public int getCredits() {
+		return credits;
+	}
+	public void setCredits(int credits) {
+		this.credits = credits;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
+	public String type;
+    
+    public Problem (int credits, String type) {
+    	this.credits=credits;
+    	this.type=type;
+    }
+    public static void main(String[] args) throws Exception {
+    	Problem p=new Problem(41,"Exception");
+    	Checker c=new Checker();
+    	String s = c.checkProblem(p);
+    	String t=c.approveProblem(p);
+        System.out.println(s+"\n"+t);
+	}
+}
+class Checker {
+	public String checkProblem(Problem p) throws Exception{
+		if(p.getCredits()<10)
+			throw new ProblemException("Insufficient credits");
+		if(p.getType().equals("String"))
+			throw new ProblemException("String problem found");
+		if(p.getType().equals("Generic"))
+			throw new ProblemException("Generic problem found");
+		if(p.getType().equals("I/O"))
+			throw new ProblemException("I/O problem found");
+		else
+			return "Exception problem found";
+	}
+	public String approveProblem(Problem p) {
+		try{
+			checkProblem(p);
+		}
+		catch (ProblemException e){
+			return "Not approved";
+		} 
+		catch (Exception e) {
+			return "Other exception";
+		}
+		return "Problem approved";
+	}
+}
+@SuppressWarnings("serial")
+class ProblemException extends Exception{
+	public ProblemException(String msg) {
+		super(msg);
+	}
+}
+
+
+*************************************************************//question 45*************************************************************************************************
+
+
+import java.util.Scanner;
+
+public class Customer {
+	String name;
+    long mobile;
+    char key;
+
+	
+	public Customer(String name , long mobile , char key) {
+		this.name=name;
+	    this.mobile=mobile;
+	    this.key=key;
+
+		
+	}
+	
+	public String encrypt() {
+		if(name.indexOf(key)>=0) {
+			return "Already Encrypted";
+		}
+		else {
+			long dig=mobile;
+			while(dig >= 10)
+			{
+				dig = dig / 10;
+			}
+			int n=(int)dig;
+			
+			StringBuilder s = new StringBuilder(name);
+		    for(int i=0; i<n; i++){
+		        s.append(key);
+		    }
+		    return s.toString();
+		}
+		
+	}
+
+	public long minCount() {
+		long min,rem;
+		long temp=mobile;
+		min=temp%10;
+	    while(temp>0) {
+	    	rem=temp%10;
+	    	if(min>rem)
+	    		min=rem;
+	    	temp=temp/10;
+	    }
+		return min;
+	}
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Customer customer = new Customer("Doselect", 29999992, '#');
+		System.out.println(customer.encrypt());
+		System.out.println(customer.minCount());
+
+
+	}
+
+}
+
+
+*************************************************************//question 46*************************************************************************************************
+
+
+package oops_exceptions;
+
+class Register{
+	public String checkCredentials(String email, String pass, String cpass) throws Exception {
+		if(!email.contains("@") || !email.contains(".")) {
+			throw new InvalidEmailExceptions("Invalid Email");
+		}
+		if(pass.length()<6) {
+			throw new InvalidPasswordException("Invalid Password");
+		}
+		if (cpass!=pass) {
+			throw new PasswordNotMatchException("Password not match");
+		}
+		return "Registered";
+	}
+}
+@SuppressWarnings("serial")
+class InvalidEmailExceptions extends Exception{
+
+	public InvalidEmailExceptions(String message) {
+		super(message);
+		
+	}
+	
+}
+@SuppressWarnings("serial")
+class InvalidPasswordException extends Exception{
+
+	public InvalidPasswordException(String message) {
+		super(message);
+		
+	}
+	
+}
+@SuppressWarnings("serial")
+class PasswordNotMatchException extends Exception{
+
+	public PasswordNotMatchException(String message) {
+		super(message);
+		
+	}
+	
+}
+public class Q46 {
+
+	public static void main(String[] args) {
+		Register user = new Register();
+		try {
+			user.checkCredentials("tushar@gmailcom","hiiiiii","hiiiiii");
+		} catch (Exception e) {
+			String name = e.getClass().getName();
+			System.out.println( name.substring(name.indexOf('.')+1)+" : "+e.getMessage());
+		}
+
+
+	}
+
+}
